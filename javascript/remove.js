@@ -45,6 +45,7 @@ const removeDepartment = () => {
         name: "deplist",
         message: "Which department would you like to delete?",
         choices: departmentList,
+        loop: false, 
         when: (answer) => answer.continue === "Yes continue to remove a department",
       },
 
@@ -167,7 +168,8 @@ const removeEmployee = () => {
                   type: "list",
                   name: "depName",
                   message: "Which one are they leaving?",
-                  choices: employeeJobList
+                  choices: employeeJobList,
+                  loop: false, 
                 }
               ])
               .then(ans => {
@@ -297,6 +299,7 @@ const removeExistingRole = () => {
                     name: "department",
                     message: `Which departement do you want to remove ${answers.jobRole} from? `, 
                     choices: departments, 
+                    loop: false, 
                   }
                 ])
                 .then(ans =>{

@@ -48,6 +48,7 @@ const viewEmployees = () => {
 				name: 'filterDep',
 				message: 'Filter by department:',
 				choices: departmentList,
+				loop: false, 
 				when: (answer) => answer.viewBy === "By Department"
 			},
 			{
@@ -55,6 +56,7 @@ const viewEmployees = () => {
 				name: 'filterMan',
 				message: 'Filter by Manager:',
 				choices: managerList,
+				loop: false, 
 				when: (answer) => answer.viewBy === "By Manager"
 			},
 			{
@@ -62,6 +64,7 @@ const viewEmployees = () => {
 				name: 'filterJob',
 				message: 'Filter by Job Role:',
 				choices: roleList,
+				loop: false, 
 				when: (answer) => answer.viewBy === "By Job Role"
 			},
 			{
@@ -69,6 +72,7 @@ const viewEmployees = () => {
 				name: 'filterEmp',
 				message: 'Filter by employee:',
 				choices: employeeList,
+				loop: false, 
 				when: (answer) => answer.viewBy === "By Employee"
 			},
 		])

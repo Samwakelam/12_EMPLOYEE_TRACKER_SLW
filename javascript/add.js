@@ -77,7 +77,8 @@ const addNewRole = () => {
                 type: "list",
                 name: "whichDep",
                 message: "What Department would you like to add a new Role to?",
-                choices: departmentList
+                choices: departmentList,
+                loop: false, 
             },
             {
                 type: "input",
@@ -159,13 +160,15 @@ const addNewEmployee = () => {
             type: "list",
             name: "department",
             message: "Assign a department",
-            choices: departmentList
+            choices: departmentList,
+            loop: false, 
         },
         {
             type: "list",
             name: "jobRole",
             message: "Assign a job role",
-            choices: roleList
+            choices: roleList,
+            loop: false, 
         },
         {
           type: "confirm",
@@ -178,6 +181,7 @@ const addNewEmployee = () => {
             name: "manager",
             message: "Assign a manager",
             choices: managerList,
+            loop: false, 
             when: (answers) => answers.haveManager === true
         },
         // for some reason requiered a final question for the manager list to display choices variable.
