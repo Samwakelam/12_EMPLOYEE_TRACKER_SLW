@@ -16,8 +16,8 @@ const con = mysql.createConnection({
 	host: "localhost",
 	port: 3306,
 	user: "root",
-	password: "Br@ntwood34",
-	// password: process.argv[2],
+	
+	password: process.argv[2],
 	database: "employeetracker",
 });
 
