@@ -110,12 +110,22 @@ You select the employee you wish to update, then which part of their information
 
 *	Department:   
   You choose the department you want to move the employee too from your list of available departments.  
-  This feature will be available in a future update. 
+
+    This assigns the employee to a department first, however you cannot assign an employee to  a department alone. 
+
+    Once the department is chosen you will be asked to choose from an associated job title. If there are none you will be asked to create one. This will spit you back out to the main menu and you will need to open the menu and update the employee again. 
+
+    This way you may also be asked about managers and it makes sure all the boxes are ticked. 
+
+<hr>
+
 
 *	Job role:  
   You choose an available job role to assign to your employee. 
 
     Changing job roles means that your employee may change departments. If this is the case the program will inform you of such and ask if you wish to update the manager, at which point you are asked the relevant manager questions and taken through those steps. Do you want to assign a manager, if so who? 
+
+<hr>
 
 *	Manager:   
   You will be asked if the employee will need a manager, if yes, which manager from your available managers. 

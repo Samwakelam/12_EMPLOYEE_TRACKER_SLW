@@ -17,7 +17,6 @@ let employeeList = [];
 // Uses only department name from the departments table and uploads it to a global variable. 
 // -----------------------------------------------------------------------
 const updateDepartmentList = () => {
-	departmentList = [];
 	// console.log("department list updated");
 	const depSql = 
 		` SELECT depName FROM departments`;
@@ -36,7 +35,6 @@ const updateDepartmentList = () => {
 // only the first and last names are added to the global variable. 
 // -----------------------------------------------------------------------
 const updateManagerList = () => {
-	managerList = [];
 	// console.log("manager list updated");
 	const manSql = 
 		`SELECT firstName, lastName, depName
@@ -54,6 +52,8 @@ const updateManagerList = () => {
 		result.forEach(value => {
 			managerList.push(value.firstName + " " + value.lastName);
 		});
+		// const noManager = "No Manager";
+		// managerList.push(noManager); 
 	});
 };
 
@@ -62,7 +62,6 @@ const updateManagerList = () => {
 // It then groups the titles so only one instance is shown in the list 
 // -----------------------------------------------------------------------
 const updateRoleList = () => {
-	roleList = [];
 	// console.log("role list updated");
 	const roleSql = 
 		` SELECT jobTitle FROM jobRole
@@ -82,7 +81,7 @@ const updateRoleList = () => {
 // to show only a single instance should an employee have two job roles. 
 // -----------------------------------------------------------------------
 const updateEmployeeList = () => {
-	employeeList = [];
+
 	const empSql = 
 		` SELECT firstName, lastName
 		FROM employee
@@ -96,11 +95,20 @@ const updateEmployeeList = () => {
 	});
 };
 
+const clearLists = () => {
+
+	departmentList = [];
+	managerList = [];
+	roleList = [];
+	employeeList = []; 
+}
+
 // ------------- Update Lists ---------------------------------------
 // Updates all lists when called by other functions 
 // so there are no stray entries to choose from.
 // -----------------------------------------------------------------------
 const updateLists = () => {
+
   updateDepartmentList();
   updateManagerList();
   updateRoleList();
@@ -109,8 +117,11 @@ const updateLists = () => {
 
 
 
+
 exports.departmentList = departmentList;
 exports.managerList = managerList;
 exports.roleList = roleList;
 exports.employeeList = employeeList;
 exports.updateLists = updateLists;
+exports.clearLists = clearLists; 
+

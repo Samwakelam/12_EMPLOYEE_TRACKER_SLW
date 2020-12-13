@@ -44,6 +44,18 @@ employee AS emp
 ON emp.jobRole_id = jr.id
 GROUP BY depName
 
+-- view job titles under a specified department and the employee count 
+SELECT jobTitle, count(firstname)
+FROM jobrole AS jr
+INNER JOIN 
+departments AS dep 
+ON jr.departments_id = dep.id 
+INNER JOIN
+employee AS emp
+ON emp.jobRole_id = jr.id
+WHERE depName = 'transport' 
+GROUP BY jobtitle
+
 -- Delete department
 DELETE FROM departments WHERE id = num
 

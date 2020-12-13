@@ -14,6 +14,7 @@ const {
 
 const mainMenu = require('../index');
 const { viewEmployees, viewDepartments, viewJobRoles } = require('./views');
+const { addNewRole } = require('./add');
 
 
 const con = mysql.createConnection({
@@ -273,7 +274,7 @@ const updateJobRole = (questionResults) => {
 }
 
 // ------------- Update Manager   ---------------------------------------
-// 1 Query repeated +  + nested questions 
+// 1 Query repeated + 2nd Querey + nested questions 
 // 1. checks to see if there will be a manager and updates NULL if there is not 
 // 2. If there is a manager, GET - manager details 
 //    checks if the chosen manager is the same as the current and asks if there should be a swap out. 
@@ -373,37 +374,37 @@ const updateManager = (questionResults) => {
 
               // if they do NOT want a new manager
             } else if (answer.diffManager == false) {
-                console.log(`The employee is still managed by ${newManager}`);
-                mainMenu.mainMenu();
+              console.log(`The employee is still managed by ${newManager}`);
+              mainMenu.mainMenu();
 
-            // if they do want a new manager and there will STILL be a manager 
+              // if they do want a new manager and there will STILL be a manager 
             } else if (answer.diffManager == true && answer.managerConfirm == true) {
-                questionResults.newManager = answer.newManager;
-                // console.log("question results manager update =", questionResults);
-                // restarts update manager with new manager choice. 
-                console.log("You have restarted manager update function");
-                updateManager(questionResults);
+              questionResults.newManager = answer.newManager;
+              // console.log("question results manager update =", questionResults);
+              // restarts update manager with new manager choice. 
+              console.log("You have restarted manager update function");
+              updateManager(questionResults);
 
-                // if they do want to change the manager and there will NOT be a manager 
+              // if they do want to change the manager and there will NOT be a manager 
             } else {
 
-                const upNoManSql =
-                  `UPDATE employee SET manager_id = NULL 
+              const upNoManSql =
+                `UPDATE employee SET manager_id = NULL 
                   WHERE id = ${questionResults.empId} `;
 
-                con.query(upNoManSql, function (err, result) {
-                  console.log({ result });
+              con.query(upNoManSql, function (err, result) {
+                console.log({ result });
 
-                  // check that update has been made 
-                  if (result.affectedRows == 1) {
-                    console.log(` ${questionResults.firstName} ${questionResults.lastName} has been assigned the manager ${newManager}`)
-                    viewEmployees();
+                // check that update has been made 
+                if (result.affectedRows == 1) {
+                  console.log(` ${questionResults.firstName} ${questionResults.lastName} has been assigned the manager ${newManager}`)
+                  viewEmployees();
 
-                  } else {
-                    console.log("Update not been made, please check and try again");
-                    viewEmployees();
-                  }
-                });
+                } else {
+                  console.log("Update not been made, please check and try again");
+                  viewEmployees();
+                }
+              });
             }
           })
           .catch((error) => {
@@ -431,6 +432,86 @@ const updateManager = (questionResults) => {
       }
     });
   }
+}
+
+// ------------- Update Department ---------------------------------------
+// 1 Query + nested questions 
+// 1. GET the job roles associated with the chosen department
+//    JOIN 3 tables to trace department id and name to job role. 
+// 2. If there is a manager, GET - manager details 
+//    checks if the chosen manager is the same as the current and asks if there should be a swap out. 
+//    query 1 repeated if manager is swaped out for no manager
+//
+//    checks if the manager needs to be changed where deparments have been reassigned automatically
+// -----------------------------------------------------------------------
+const updateDepartment = (questionResults) => {
+  //  console.log("questionResults", questionResults); 
+  const { newDepartment } = questionResults;
+  let newDepId = "";
+
+  const newDepIdSql =
+    `SELECT * FROM departments
+    WHERE depName = '${newDepartment}' `;
+
+  con.query(newDepIdSql, function (err, result) {
+    // console.log("update department result =", result);
+    newDepId = result[0].id;
+
+    let availableJobroles = [];
+    // gets the job roles associated with the chosen department. 
+    const getAJrSql =
+      ` SELECT jobTitle
+      FROM jobrole AS jr
+      INNER JOIN 
+      departments AS dep 
+      ON jr.departments_id = dep.id 
+      WHERE depName = '${newDepartment}' 
+      GROUP BY jobtitle`
+    con.query(getAJrSql, function (err, result) {
+      // console.log("available job roles result =", result);
+      result.forEach((value) => {
+        availableJobroles.push(value.jobTitle);
+      });
+
+      availableJobroles.push("Add new role");
+      // console.log("availableJobroles =", availableJobroles);
+
+      if (availableJobroles.length < 1) {
+        console.log("You have no job roles available in this department. Please create one before continuing.");
+        addNewRole();
+
+      } else {
+
+        inquirer
+          .prompt([
+            {
+              type: "list",
+              name: "jobRole",
+              message: "Which Job role would you like to assign in this department?",
+              choices: availableJobroles,
+              loop: false
+            }
+          ])
+          .then(answer => {
+            // console.log("job roles answer =", answer);
+            if (answer.jobRole == "Add new role") {
+              console.log("You will be returned to the main menu after adding your role. ");
+              addNewRole();
+            } else {
+              questionResults.newJobRole = answer.jobRole;
+              // console.log("questionResults update =", questionResults); 
+              console.log("You have been passed to the update job role function");
+              updateJobRole(questionResults);
+            }
+          })
+          .catch((error) => {
+            console.log("error =", error);
+            console.log("woops, something went wrong");
+          });
+
+      }; // end of else 
+    });
+  });
 }
 
 // ------------- new or return  ---------------------------------------
