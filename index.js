@@ -94,7 +94,7 @@ const mainMenu = () => {
 				return removeExistingRole(); // complete 
 
 			} else if (choices.action == 'Open Departments' && choices.departments == 'View job roles') {
-				return viewJobRoles();
+				return viewJobRoles(); // complete
 
 
 

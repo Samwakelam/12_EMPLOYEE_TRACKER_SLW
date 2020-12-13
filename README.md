@@ -42,7 +42,7 @@ Use the command line ```> npm install <dependency name> ```
 
 4. I have named the application with a welcome to McDuck Enterprises. To change this to your own company name you will need to open index.js and in the top line of the mainMenu() function there is a console log with the welcome statement. There is also a thank you for leaving in the Exit option. Other than that, it’s all down to you to name and populate your departments and job roles. 
 
-5. to Populate your database with McDuck Enterprises use the Seed.sql file in the database folder to set up the initial tables and insert the main employees. 
+5. To Populate your database with McDuck Enterprises use the Seed.sql file in the database folder to set up the initial tables and insert the main employees. 
 
 #### Technologies 
 * Inquirer
@@ -102,8 +102,30 @@ A manager’s job role must be ‘manager’
 
 ##### Update an existing employee 
 
+This selection is a little in depth. 
+
+First you are asked for a reason such as promotion or reassignment. This currently does not have any benefit, but future updates can see actions attached to this.
+
+You select the employee you wish to update, then which part of their information you wish to adjust. There is a confirmation question at the end to check if the information you enter is correct. 
+
+*	Department:   
+  You choose the department you want to move the employee too from your list of available departments.  
+  This feature will be available in a future update. 
+
+*	Job role:  
+  You choose an available job role to assign to your employee. 
+
+    Changing job roles means that your employee may change departments. If this is the case the program will inform you of such and ask if you wish to update the manager, at which point you are asked the relevant manager questions and taken through those steps. Do you want to assign a manager, if so who? 
+
+*	Manager:   
+  You will be asked if the employee will need a manager, if yes, which manager from your available managers. 
+
+    The program will inform you if you have chosen the manager they are currently assigned too and if you would like to choose another manager. 
+
+
+
 ##### Remove an employee 
-There is a check in place here that allows you to escape if you accidently entered by mistake, you are then asked to choose from a list of your named employeess. They will be permanently deleted. 
+There is a check in place here that allows you to escape if you accidently entered by mistake, you are then asked to choose from a list of your named employees. They will be permanently deleted. 
 
 You are asked for a reason for the employee leaving service, for the moment there is a farewell statement attached to each, but future use could see an action attached to this command. 
 
