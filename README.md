@@ -6,6 +6,8 @@ Welcome to my employee tracker. The purpose of this project is to create an appl
 
 As a business owner, you may want to view and manager the departments roles and employees in your company. I have designed and built a solution for managing a company’s employees using node, inquirer, and MySQL. The interface is designed to be easy for none-developers to use. 
 
+![The McDuck money bin](public/assets/images/Money-bin.png)
+
 For a bit of fun, I have created a test business that can be run with the interface centred around Duckburg and Scrooge McDuck’s Money Bin. 
 There is a file included that will populate a database on MySQL for you and in the instructions, there are some suggested employees you can add to update and amend. I hope you have fun in Duckburg. 
 
@@ -115,7 +117,7 @@ By employee will show you a list of employees to choose from and return the empl
 View all, will show all employees, returning the employee name, salary , job role and id number.
 
 ### Additional employees and actions. - McDuck Enterprises. 
-
+![Ducktales characters](public/assets/images/DuckTales_Characters.jpg)
 
 ## Improvements 
 
