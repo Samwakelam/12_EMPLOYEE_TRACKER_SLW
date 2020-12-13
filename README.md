@@ -75,15 +75,18 @@ There is a check in place here that allows you to escape if you accidently enter
 ##### View departments:
 View departments will list for you the department name and id and how many employees are employed under it. 
 
-##### Add a job role to a department. 
+##### Add a job role to a department:
 You are asked for the name of your job role, be sure to either stick to sentence case or lower case or some views may show you the same job role as two different entries. 
 
 You are asked to choose a department to associate the role to, and salary which is validated by a numerical input. 
 
-##### Remove a Job role. 
+##### Remove a Job role:
 You are asked which job role you wish to remove. Some departments may have the same job role, if this is the case, you are asked to select which department the role you are removing is from. 
 
 if you wish to delete multiple you will need to run the programm again for each role. 
+
+##### View Job roles
+View Job Roles will list for you the job title and how many employees are employed under it. 
 
 ### Open Employees: 
 This is all things employee based. You can assign their job roles, view and delete as you desire. 

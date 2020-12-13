@@ -2,7 +2,7 @@ const inquirer = require('inquirer');
 const mysql = require("mysql");
 
 // My Pages 
-const { viewEmployees, viewDepartments } = require('./javascript/views');
+const { viewEmployees, viewDepartments, viewJobRoles } = require('./javascript/views');
 const { addNewDepartment, addNewRole, addNewEmployee } = require('./javascript/add');
 const { removeDepartment, removeEmployee, removeExistingRole } = require('./javascript/remove');
 const { updateExistingEmployee } = require('./javascript/update');
@@ -11,7 +11,6 @@ const con = mysql.createConnection({
 	host: "localhost",
 	port: 3306,
 	user: "root",
-	
 	password: process.argv[2],
 	database: "employeetracker",
 });
@@ -24,9 +23,6 @@ const databaseConnection = () => {
 	return console.log("database connected");
 }
 
-const exitMenu = () => {
-	return; 
-}
 
 const mainMenu = () => {
 	console.log("Welcome to McDuck Enterprises!");
@@ -53,7 +49,8 @@ const mainMenu = () => {
 					'Remove a department',
 					'View departments',
 					'Add a department job role',
-					'Remove a job role'
+					'Remove a job role', 
+					'View job roles',
 				],
 				when: (answer) => answer.action === "Open Departments"
 			},
@@ -95,6 +92,11 @@ const mainMenu = () => {
 
 			} else if (choices.action == 'Open Departments' && choices.departments == 'Remove a job role') {
 				return removeExistingRole(); // complete 
+
+			} else if (choices.action == 'Open Departments' && choices.departments == 'View job roles') {
+				return viewJobRoles();
+
+
 
 			} else if (choices.action == 'Open Employees' && choices.employees == 'Add new employee') {
 				return addNewEmployee(); // complete
