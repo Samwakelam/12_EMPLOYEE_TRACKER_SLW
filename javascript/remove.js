@@ -112,17 +112,19 @@ const removeEmployee = () => {
         name: "emplist",
         message: "Which employee would you like to delete?",
         choices: employeeList,
+        loop: false, 
         when: (answer) => answer.continue === "Yes continue to remove an employee",
       },
       {
         type: "list", 
         name: "reason",
         message: "What is the reason for their leaving?",
-        choices: ["FIRED", "Leaving", "Redundent", "Incorrect entry"]
+        choices: ["FIRED", "Leaving", "Redundent", "Incorrect entry"],
+        when: (answer) => answer.continue === "Yes continue to remove an employee",
       }
     ])
     .then(answers => {
-      console.log("answers =", answers);
+      // console.log("answers =", answers);
       if(answers.continue == "Return"){
         mainMenu.mainMenu();
 
@@ -137,8 +139,8 @@ const removeEmployee = () => {
           WHERE (firstName, lastName) = ("${eFname}", "${eLname}")`;
 
         con.query(geSql, async function(err, result){
-          console.log({result});
-          console.log("result.length =", result.length);
+          // console.log({result});
+          // console.log("result.length =", result.length);
           let getIdToDelete = "";
 
           if(result.length > 1){
@@ -167,7 +169,8 @@ const removeEmployee = () => {
                   message: "Which one are they leaving?",
                   choices: employeeJobList
                 }
-              ]).then(ans => {
+              ])
+              .then(ans => {
                 console.log({ans});
                 for(j in result){
                   if(result[j].jobTitle == ans.depName){
@@ -200,7 +203,7 @@ const removeEmployee = () => {
                 console.log(`We are so sorry, you're possition is no longer available ${eFname +" "+ eLname}. Thanks for your hard work.`);
                 break;
               case "Incorrect entry":
-                console.log(`Sometimes even management make mistakes. Entry ${eFname +" "+ eLname +" "+ ans.depName} removed.`);
+                console.log(`Sometimes even management make mistakes. Entry ${eFname +" "+ eLname} removed.`);
                 break;
             }
             viewEmployees();

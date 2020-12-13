@@ -102,7 +102,7 @@ const mainMenu = () => {
 				return addNewEmployee(); // complete
 
 			} else if (choices.action == 'Open Employees' && choices.employees == 'Updating existing employee') {
-				return updateExistingEmployee(); // complete
+				return updateExistingEmployee(); // needs update by department
 				
 			} else if (choices.action == 'Open Employees' && choices.employees == 'Remove an Employee') {
 				return removeEmployee(); // does not return to main menu - add feature if manager is fired. -
