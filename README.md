@@ -40,7 +40,7 @@ Use the command line ```> npm install <dependency name> ```
 
 3. To run the application enter ``` > node index <Your password> ``` in your command line terminal. You will need to enter your password for your MySQL datatbase here to. 
 
-4. I have named the application with a welcome to McDuck Enterprises. To change this to your own company name you will need to open index.js and in the top line of the mainMenu() function there is a console log with the welcome statement. Other than that, it’s all down to you to name and populate your departments and job roles. 
+4. I have named the application with a welcome to McDuck Enterprises. To change this to your own company name you will need to open index.js and in the top line of the mainMenu() function there is a console log with the welcome statement. There is also a thank you for leaving in the Exit option. Other than that, it’s all down to you to name and populate your departments and job roles. 
 
 5. to Populate your database with McDuck Enterprises use the Seed.sql file in the database folder to set up the initial tables and insert the main employees. 
 
@@ -79,6 +79,11 @@ View departments will list for you the department name and id and how many emplo
 You are asked for the name of your job role, be sure to either stick to sentence case or lower case or some views may show you the same job role as two different entries. 
 
 You are asked to choose a department to associate the role to, and salary which is validated by a numerical input. 
+
+##### Remove a Job role. 
+You are asked which job role you wish to remove. Some departments may have the same job role, if this is the case, you are asked to select which department the role you are removing is from. 
+
+if you wish to delete multiple you will need to run the programm again for each role. 
 
 ### Open Employees: 
 This is all things employee based. You can assign their job roles, view and delete as you desire. 

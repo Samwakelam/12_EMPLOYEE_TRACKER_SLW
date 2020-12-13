@@ -4,7 +4,7 @@ const mysql = require("mysql");
 // My Pages 
 const { viewEmployees, viewDepartments } = require('./javascript/views');
 const { addNewDepartment, addNewRole, addNewEmployee } = require('./javascript/add');
-const { removeDepartment, removeEmployee } = require('./javascript/remove');
+const { removeDepartment, removeEmployee, removeExistingRole } = require('./javascript/remove');
 const { updateExistingEmployee } = require('./javascript/update');
 
 const con = mysql.createConnection({
@@ -52,7 +52,8 @@ const mainMenu = () => {
 					'Add new department',
 					'Remove a department',
 					'View departments',
-					'Add a department job role'
+					'Add a department job role',
+					'Remove a job role'
 				],
 				when: (answer) => answer.action === "Open Departments"
 			},
@@ -74,7 +75,7 @@ const mainMenu = () => {
 			// console.log("choices =", choices);
 
 			if (choices.action === 'Exit') {
-				console.log("You wish to leave McDuck Enterprises, Goodbye.");
+				console.log("Thank you for visiting McDuck Enterprises. We hope you enjouy your day.");
 				return process.exit();
 
 			} else if (choices.employees == 'Return' || choices.departments == 'Return') {
@@ -92,14 +93,17 @@ const mainMenu = () => {
 			} else if (choices.action == 'Open Departments' && choices.departments == 'Add a department job role') {
 				return addNewRole(); //complete
 
+			} else if (choices.action == 'Open Departments' && choices.departments == 'Remove a job role') {
+				return removeExistingRole(); // complete 
+
 			} else if (choices.action == 'Open Employees' && choices.employees == 'Add new employee') {
 				return addNewEmployee(); // complete
 
 			} else if (choices.action == 'Open Employees' && choices.employees == 'Updating existing employee') {
-				return updateExistingEmployee();
+				return updateExistingEmployee(); // complete
 				
 			} else if (choices.action == 'Open Employees' && choices.employees == 'Remove an Employee') {
-				return removeEmployee(); // complete - add feature if manager is fired. 
+				return removeEmployee(); // does not return to main menu - add feature if manager is fired. -
 
 			} else if (choices.action == 'Open Employees' && choices.employees == 'View employees') {
 				return viewEmployees(); // -- look at view by job role, not showing? or is it removal of a department. 
