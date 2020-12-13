@@ -105,10 +105,10 @@ const mainMenu = () => {
 				return updateExistingEmployee(); // needs update by department
 				
 			} else if (choices.action == 'Open Employees' && choices.employees == 'Remove an Employee') {
-				return removeEmployee(); // does not return to main menu - add feature if manager is fired. -
+				return removeEmployee(); // complete - add feature if manager is fired. -
 
 			} else if (choices.action == 'Open Employees' && choices.employees == 'View employees') {
-				return viewEmployees(); // -- look at view by job role, not showing? or is it removal of a department. 
+				return viewEmployees(); // complete
 			}
 
 			// remove a job role
