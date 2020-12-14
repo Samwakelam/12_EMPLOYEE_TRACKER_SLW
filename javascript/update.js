@@ -22,8 +22,8 @@ const con = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-
-  password: process.argv[2],
+  password: 'Br@ntwood34',
+  // password: process.argv[2],
   database: "employeetracker",
 });
 
@@ -91,7 +91,7 @@ const updateExistingEmployee = () => {
       }
     ])
     .then(answers => {
-      console.log("update existing employee answers =", answers);
+      // console.log("update existing employee answers =", answers);
 
       if (answers.confirm == false) {
         newOrReturn();
@@ -137,22 +137,22 @@ const updateExistingEmployee = () => {
           questionAnswers.currentManagerId = result[0].manId;
           questionAnswers.currentDepartment = result[0].depName;
           questionAnswers.currentDepId = result[0].depId;
-          console.log("questionAnswers updated 1st SQL call=", questionAnswers);
+          // console.log("questionAnswers updated 1st SQL call=", questionAnswers);
 
           // function is called deppending how the user wants to change the employee. 
           switch (answers.section) {
             case "Department":
-              console.log("Passed to update department function");
+              // console.log("Passed to update department function");
               updateDepartment(questionAnswers);
               break;
 
             case "Job role":
-              console.log("Passed to update job role function");
+              // console.log("Passed to update job role function");
               updateJobRole(questionAnswers);
               break;
 
             case "Manager":
-              console.log("Passed to update manager function");
+              // console.log("Passed to update manager function");
               updateManager(questionAnswers);
               break;
           }
@@ -237,32 +237,31 @@ const updateJobRole = (questionResults) => {
           ])
           .then(confirm => {
             if (confirm.detailsConfirm == false) {
-              console.log("Restarted jobrole function");
+              // console.log("Restarted jobrole function");
               updateJobRole(questionResults);
 
-            } else {
-              //if they do want to change manager and there will STILL be a manager 
-              if (confirm.changeManager == true && confirm.managerConfirm == true) {
+            } else if (confirm.changeManager == true && confirm.managerConfirm == true) {
+              //if they do want to change manager and there will STILL be a manager
                 // set manager to new chosen manager and start update manager
                 questionResults.newManager = confirm.newManager;
-                console.log("question results manager update =", questionResults);
-                console.log("Passed to update manager function");
+                // console.log("question results manager update =", questionResults);
+                // console.log("Passed to update manager function");
                 updateManager(questionResults);
 
                 //if they do want to change manager and there will NOT be a manager 
-              } else if (confirm.changeManager == true && confirm.managerConfirm == false) {
+            } else if (confirm.changeManager == true && confirm.managerConfirm == false) {
                 // set manager to new chosen manager and start update manager
                 questionResults.newManager = "No Manager";
-                console.log("question results manager update =", questionResults);
-                console.log("Passed to update manager function");
+                // console.log("question results manager update =", questionResults);
+                // console.log("Passed to update manager function");
                 updateManager(questionResults);
 
                 //if they do NOT want to change manager
-              } else {
+            } else {
                 console.log("You have chosen NOT to change the employee's manager.")
                 viewEmployees();
-              }
             }
+            
           })
           .catch((error) => {
             console.log("error =", error);
@@ -295,7 +294,7 @@ const updateManager = (questionResults) => {
       WHERE id = ${questionResults.empId} `;
 
     con.query(upNoManSql1, function (err, result) {
-      console.log({ result });
+      // console.log({ result });
 
       // check that update has been made 
       if (result.affectedRows == 1) {
@@ -383,7 +382,7 @@ const updateManager = (questionResults) => {
               questionResults.newManager = answer.newManager;
               // console.log("question results manager update =", questionResults);
               // restarts update manager with new manager choice. 
-              console.log("You have restarted manager update function");
+              // console.log("You have restarted manager update function");
               updateManager(questionResults);
 
               // if they do want to change the manager and there will NOT be a manager 
@@ -394,7 +393,7 @@ const updateManager = (questionResults) => {
                   WHERE id = ${questionResults.empId} `;
 
               con.query(upNoManSql, function (err, result) {
-                console.log({ result });
+                // console.log({ result });
 
                 // check that update has been made 
                 if (result.affectedRows == 1) {
@@ -420,7 +419,7 @@ const updateManager = (questionResults) => {
           WHERE id = ${empId} `;
 
         con.query(upEmpSql, function (err, result) {
-          console.log({ result });
+          // console.log({ result });
           // check that update has been made 
           if (result.affectedRows == 1) {
             console.log(` ${questionResults.firstName} ${questionResults.lastName} has been assigned the manager ${newManager}`);
@@ -498,7 +497,7 @@ const updateDepartment = (questionResults) => {
             } else {
               questionResults.newJobRole = answer.jobRole;
               // console.log("questionResults update =", questionResults); 
-              console.log("You have been passed to the update job role function");
+              // console.log("You have been passed to the update job role function");
               updateJobRole(questionResults);
             }
           })

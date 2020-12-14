@@ -4,7 +4,8 @@ const con = mysql.createConnection({
 	host: "localhost",
 	port: 3306,
 	user: "root",
-  password: process.argv[2],
+	password: 'Br@ntwood34',
+  // password: process.argv[2],
 	database: "employeetracker",
 });
 
@@ -23,8 +24,11 @@ const updateDepartmentList = () => {
 	con.query( depSql, function(err, result){
 		// console.log({result}); 
 		result.forEach(value => {
-			departmentList.push(value.depName)
+			if(value.depName !== 'HR'){
+				departmentList.push(value.depName);
+			}
 		});
+		
 	});
 };
 
@@ -52,8 +56,8 @@ const updateManagerList = () => {
 		result.forEach(value => {
 			managerList.push(value.firstName + " " + value.lastName);
 		});
-		// const noManager = "No Manager";
-		// managerList.push(noManager); 
+		const noManager = "No Manager";
+		managerList.push(noManager); 
 	});
 };
 
@@ -95,13 +99,14 @@ const updateEmployeeList = () => {
 	});
 };
 
-// const clearLists = () => {
+const clearLists = () => {
 
-// 	departmentList = [];
-// 	managerList = [];
-// 	roleList = [];
-// 	employeeList = []; 
-// }
+	departmentList = [];
+	managerList = [];
+	roleList = [];
+	employeeList = []; 
+	updateLists();
+}
 
 // ------------- Update Lists ---------------------------------------
 // Updates all lists when called by other functions 
@@ -123,6 +128,6 @@ exports.departmentList = departmentList;
 exports.managerList = managerList;
 exports.roleList = roleList;
 exports.employeeList = employeeList;
-// exports.clearLists = clearLists; 
+exports.clearLists = clearLists; 
 exports.updateLists = updateLists;
 

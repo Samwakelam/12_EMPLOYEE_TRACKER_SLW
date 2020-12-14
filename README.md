@@ -59,6 +59,8 @@ Use the command line ```> npm install <dependency name> ```
 3. [Open Employees](#Open-Employees) 
 4. [Open Job Roles](#OpenJobRoles)
 
+* Click on the coral banners for video demonstrations.
+
 ### Open departments: 
 This is all things business side to the application, manager the departments and roles but your employees are nowhere to be seen. You will need to return to the start menu and Open Employees using the “Return” option. 
 
@@ -75,6 +77,10 @@ There is a check in place here that allows you to escape if you accidently enter
 
 ##### View departments:
 View departments will list for you the department name and id and how many employees are employed under it. 
+
+###### Departments Video Demonstration
+
+[![Open departments](public/assets/images/Open-departments.png)](https://drive.google.com/file/d/1tp2jLQWGNjOHcajYAehnU6vY0BqUO33N/preview)
 
 ### Open Job Roles: 
 This is all things Job role related. 
@@ -96,6 +102,9 @@ if you wish to delete multiple you will need to run the programm again for each 
 ##### View Job roles
 View Job Roles will list for you the job title and how many employees are employed under it. 
 
+###### Job Roles Video Demonstration
+
+[![Open Job Roles](public/assets/images/Open-jobroles.png)](https://drive.google.com/file/d/1e4YHIrBu2RmJLXKQYkf0YSh6zc-TaHA8/preview)
 
 ### Open Employees: 
 This is all things employee based. You can assign their job roles, view and delete as you desire. 
@@ -108,6 +117,9 @@ Here you can:
 When asked, input the employee’s first and last names (separately), choose a department, choose a job role, and decide if they need a manager or not. If they do, you will be asked to choose from the list of managers available. 
 
 A manager’s job role must be ‘manager’ 
+
+###### Add Employee Video Demonstration
+[![Add Employee](public/assets/images/add-employee.png)](https://drive.google.com/file/d/1uFiP_aQEDCi6dV-HLfJJarsLh83MD7r7/preview)
 
 ##### Update an existing employee 
 
@@ -141,6 +153,12 @@ You select the employee you wish to update, then which part of their information
 
     The program will inform you if you have chosen the manager they are currently assigned too and if you would like to choose another manager. 
 
+<hr>
+
+* HR: 
+This is currently a somewhat "hidden" department. You cannot delete it, You can view it in view departments. 
+
+Hopefully a future update will see employees that are displaced by the removal of a job role or department will be sent to HR for reassignment. 
 
 
 ##### Remove an employee 
@@ -167,6 +185,33 @@ View all, will show all employees, returning the employee name, salary , job rol
 
 ### Additional employees and actions. - McDuck Enterprises. 
 ![Ducktales characters](public/assets/images/DuckTales_Characters.jpg)
+
+* Goldie O'Guilt - Adventurer and bad guy you could add her into either the villan department or adventure department. But keep her under the watchful eye of Ms Beakley (Bentina). 
+
+* Mark Beaks - a younge tech industry billionaire often siding with Flintheart Glomgold to bring down scrooge McDuck. Currently employed in the science department as a technologist. 
+
+* Try adding a space program, captained by General Lunaris and his second in command Lieutenant Penumbra
+
+* Hire more accountants Bently and Buford Buzzard. You could make it a seperate department managed by Bradford Buzzard, already employed by McDuck industries. 
+
+* Black Heron - chemist, bad guy/gal. Many of Gyro Gearloose's inventions seem to turn evil, apparently so do his staff. 
+
+* Mrs Featherby - Scrooge's secretary or you could add another Librarian. 
+
+* Ludvig Von Drake - Senior Scientist, does not really report to anyone as he is a self proclaimed universal expert. Try adding him as another science department manager. 
+
+Other characters. 
+Gladstone Gander
+Fergus McDuck 
+M'Ma Crackershell - coppa
+Fethry Duck - Genitor becomes scientist
+Drake Mallard - Darkwing Duck / Tv Hero 
+Daisy Duck - Event planner
+Ripcord McQuack - pilot
+King Blowhard - Hero 
+Barnacle Biff - sailor 
+Archibald Quackerbill - sailor 
+
 
 ## Improvements 
 

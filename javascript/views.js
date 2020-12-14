@@ -9,7 +9,7 @@ const {
   managerList,
   roleList,
   employeeList,
-	// clearLists,
+	clearLists,
 	updateLists,
 } = require('./lists');
 
@@ -17,8 +17,8 @@ const con = mysql.createConnection({
 	host: "localhost",
 	port: 3306,
 	user: "root",
-	
-	password: process.argv[2],
+	password: 'Br@ntwood34',
+  // password: process.argv[2],
 	database: "employeetracker",
 });
 
@@ -78,7 +78,7 @@ const viewEmployees = () => {
 			},
 		])
 		.then((choice) => {
-			console.log("choice =", choice);
+			// console.log("choice =", choice);
 
 			switch (choice.viewBy) {
 				// ------------- View all ---------------------------------------
@@ -146,7 +146,7 @@ const viewEmployees = () => {
 						});
 						console.table(display);
 						clearLists(); 
-						updateLists(); 
+					
 						mainMenu.mainMenu();
 					});
 					break;
@@ -317,15 +317,18 @@ const viewDepartments = () => {
 // -----------------------------------------------------------------------
 const viewJobRoles = () => {
 	const jrSql = 
-		` SELECT jobTitle, count(firstName) 
+		` SELECT jobTitle, salary, count(firstName) 
 		FROM departments AS dep 
 		LEFT JOIN 
 		jobRole AS jr
 		ON dep.id = jr.departments_id
     LEFT JOIN 
     employee AS emp
-    ON jr.id = emp.jobRole_id
-    GROUP BY jobTitle `;
+		ON jr.id = emp.jobRole_id
+		WHERE jobTitle IS NOT NULL 
+		GROUP BY jobTitle
+		ORDER BY jobTitle `;
+		
 	con.query( jrSql, function(err, result){
 		// console.log({result}); 
 		let display = [];
@@ -333,7 +336,8 @@ const viewJobRoles = () => {
 			display.push(
 				{
 					'Job Title': value.jobTitle,
-					'Employee Count': value['count(firstName)']
+					'Employee Count': value['count(firstName)'],
+					'Salary': value.salary
 				}
 			)
 		});

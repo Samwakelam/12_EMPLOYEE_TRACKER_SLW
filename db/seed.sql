@@ -8,30 +8,30 @@ INSERT INTO departments (depName) VALUES ( 'villans' );
 
 
 -- insert into jobRoles
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'manager', 50000, 1 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'manager', 15000, 2 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'manager', 25000, 3 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'manager', 27000, 4 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'accountant', 30000, 1 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'manager', 50000, 2 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'manager', 15000, 3 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'manager', 25000, 4 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'manager', 27000, 5 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'accountant', 30000, 6 );
 
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'librarian', 12000, 1 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'administrator', 11000, 1 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'scientist', 20000, 3 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'technologist', 22000, 3 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'gizmo-duck', 18000, 3 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'librarian', 12000, 2 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'administrator', 11000, 2 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'scientist', 20000, 4 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'technologist', 22000, 4 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'gizmo-duck', 18000, 4 );
 
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'pilot', 12000, 2 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'sailor', 9000, 2 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'chauffeur', 10000, 2 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'hero', 21000, 4 );
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'god', 24000, 4 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'pilot', 12000, 3 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'sailor', 9000, 3 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'chauffeur', 10000, 3 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'hero', 21000, 5 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'god', 24000, 5 );
 
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'baddy', 0, 5 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'baddy', 0, 6 );
 
-INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'trainee', 260, 1 );
 INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'trainee', 260, 2 );
 INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'trainee', 260, 3 );
 INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'trainee', 260, 4 );
+INSERT INTO jobRole (jobTitle, salary, departments_id) VALUES ( 'trainee', 260, 5 );
 
 
 

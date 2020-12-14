@@ -19,7 +19,8 @@ const con = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
-  password: process.argv[2],
+  password: 'Br@ntwood34',
+  // password: process.argv[2],
   database: "employeetracker",
 });
 
@@ -48,7 +49,6 @@ const removeDepartment = () => {
         loop: false, 
         when: (answer) => answer.continue === "Yes continue to remove a department",
       },
-
     ])
     .then(answers => {
       // console.log("answers =", answers);
@@ -63,7 +63,7 @@ const removeDepartment = () => {
             `SELECT * FROM departments`;
           let chosenDepId = "";
           con.query(getdepIdSql, function (err, result) {
-            console.log({ result });
+            // console.log({ result });
             for (i in result) {
               if (answers.deplist == result[i].depName) {
                 chosenDepId = result[i].id;
@@ -73,10 +73,9 @@ const removeDepartment = () => {
             const rdSql =
               `DELETE FROM departments WHERE id = ${chosenDepId}`;
             con.query(rdSql, function(err, result){
-              console.log({ result });
+              // console.log({ result });
               console.log("The Department has been deleted");
               viewDepartments();
-              mainMenu.mainMenu();
             })
           })
           break;
@@ -125,7 +124,7 @@ const removeEmployee = () => {
       }
     ])
     .then(answers => {
-      // console.log("answers =", answers);
+      console.log("answers =", answers);
       if(answers.continue == "Return"){
         mainMenu.mainMenu();
 
@@ -140,7 +139,7 @@ const removeEmployee = () => {
           WHERE (firstName, lastName) = ("${eFname}", "${eLname}")`;
 
         con.query(geSql, async function(err, result){
-          // console.log({result});
+          console.log({result});
           // console.log("result.length =", result.length);
           let getIdToDelete = "";
 
@@ -173,26 +172,26 @@ const removeEmployee = () => {
                 }
               ])
               .then(ans => {
-                console.log({ans});
+                // console.log({ans});
                 for(j in result){
                   if(result[j].jobTitle == ans.depName){
                     getIdToDelete = result[j].id
-                    console.log("result.id 2 or more =",result[j].id);
+                    // console.log("result.id 2 or more =",result[j].id);
                   }
                 }
-                console.log({getIdToDelete});
+                // console.log({getIdToDelete});
               })
 
           } else {
             getIdToDelete = result[0].id;
-            console.log("result.id 1 =",result[0].id);
-            console.log({getIdToDelete});
+            // console.log("result.id 1 =",result[0].id);
+            // console.log({getIdToDelete});
           }
 
           const reSql =
           `DELETE FROM employee WHERE id = ${getIdToDelete}`;
           con.query(reSql, function(err, result){
-            console.log({result});
+            // console.log({result});
 
             switch(answers.reason){
               case "FIRED":
@@ -254,7 +253,7 @@ const removeExistingRole = () => {
 
     ])
     .then(answers => {
-      console.log("answers = ",answers); 
+      // console.log("answers = ",answers); 
       if (answers.stayOrLeave == "Return to main menu"){
         mainMenu.mainMenu();
 
@@ -303,7 +302,7 @@ const removeExistingRole = () => {
                   }
                 ])
                 .then(ans =>{
-                  console.log("answer department =", ans); 
+                  // console.log("answer department =", ans); 
                   for (j in result){
                     if (result[j].depName == ans.department){
                       jrIdToDelete = result[j].jrid;
