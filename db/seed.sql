@@ -1,9 +1,10 @@
 -- insert into departments
+INSERT INTO departments (depName) VALUES ( 'HR' );
 INSERT INTO departments (depName) VALUES ( 'moneyBin' );
 INSERT INTO departments (depName) VALUES ( 'transport' );
 INSERT INTO departments (depName) VALUES ( 'science' );
 INSERT INTO departments (depName) VALUES ( 'adventure' );
-INSERT INTO departments (depName) VALUES ( 'enemy' );
+INSERT INTO departments (depName) VALUES ( 'villans' );
 
 
 -- insert into jobRoles

@@ -10,6 +10,7 @@ const {
   roleList,
   employeeList,
   updateLists,
+  // clearLists
 } = require('./lists');
 
 const mainMenu = require('../index');
@@ -437,12 +438,9 @@ const updateManager = (questionResults) => {
 // ------------- Update Department ---------------------------------------
 // 1 Query + nested questions 
 // 1. GET the job roles associated with the chosen department
-//    JOIN 3 tables to trace department id and name to job role. 
-// 2. If there is a manager, GET - manager details 
-//    checks if the chosen manager is the same as the current and asks if there should be a swap out. 
-//    query 1 repeated if manager is swaped out for no manager
-//
-//    checks if the manager needs to be changed where deparments have been reassigned automatically
+//    JOIN job role and department tables to trace department id and name to job role. 
+// 
+// asks you to choose a job role under that department and sends you to update jobrole which will check managers etc. 
 // -----------------------------------------------------------------------
 const updateDepartment = (questionResults) => {
   //  console.log("questionResults", questionResults); 

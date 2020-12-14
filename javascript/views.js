@@ -9,8 +9,8 @@ const {
   managerList,
   roleList,
   employeeList,
+	// clearLists,
 	updateLists,
-	clearLists
 } = require('./lists');
 
 const con = mysql.createConnection({
@@ -28,8 +28,8 @@ const con = mysql.createConnection({
 // -----------------------------------------------------------------------
 const viewEmployees = () => {
 
-		updateLists();
-	
+	updateLists();
+
 	inquirer
 		.prompt([
 			{

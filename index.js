@@ -6,6 +6,7 @@ const { viewEmployees, viewDepartments, viewJobRoles } = require('./javascript/v
 const { addNewDepartment, addNewRole, addNewEmployee } = require('./javascript/add');
 const { removeDepartment, removeEmployee, removeExistingRole } = require('./javascript/remove');
 const { updateExistingEmployee } = require('./javascript/update');
+const { updateLists } = require('./javascript/lists');
 
 const con = mysql.createConnection({
 	host: "localhost",
@@ -36,8 +37,10 @@ const mainMenu = () => {
 				choices: [
 					'Exit',
 					'Open Departments',
+					'Open Job Roles',
 					'Open Employees'
 				],
+				loop: false,
 			},
 			{
 				type: "list",
@@ -48,11 +51,22 @@ const mainMenu = () => {
 					'Add new department',
 					'Remove a department',
 					'View departments',
+				],
+				loop: false,
+				when: (answer) => answer.action === "Open Departments",
+			},
+			{
+				type: "list",
+				name: "jobRoles",
+				message: "You have opened the Job roles functions: ",
+				choices: [
+					'Return',
 					'Add a department job role',
 					'Remove a job role', 
 					'View job roles',
 				],
-				when: (answer) => answer.action === "Open Departments"
+				loop: false,
+				when: (answer) => answer.action === 'Open Job Roles',
 			},
 			{
 				type: "list",
@@ -65,7 +79,8 @@ const mainMenu = () => {
 					'Remove an Employee',
 					'View employees'
 				],
-				when: (answer) => answer.action === "Open Employees"
+				loop: false,
+				when: (answer) => answer.action === "Open Employees",
 			},
 		])
 		.then((choices) => { 
@@ -75,9 +90,11 @@ const mainMenu = () => {
 				console.log("Thank you for visiting McDuck Enterprises. We hope you enjouy your day.");
 				return process.exit();
 
-			} else if (choices.employees == 'Return' || choices.departments == 'Return') {
+			} else if (choices.employees == 'Return' || choices.departments == 'Return' || choices.jobRoles == 'Return') {
 				return mainMenu(); // complete
 
+
+				
 			} else if (choices.action == 'Open Departments' && choices.departments == 'Add new department') {
 				return addNewDepartment(); // complete
 
@@ -87,13 +104,15 @@ const mainMenu = () => {
 			} else if (choices.action == 'Open Departments' && choices.departments == 'View departments') {
 				return viewDepartments(); //complete
 
-			} else if (choices.action == 'Open Departments' && choices.departments == 'Add a department job role') {
+
+
+			} else if (choices.action == 'Open Job Roles' && choices.jobRoles == 'Add a department job role') {
 				return addNewRole(); //complete
 
-			} else if (choices.action == 'Open Departments' && choices.departments == 'Remove a job role') {
+			} else if (choices.action == 'Open Job Roles' && choices.jobRoles == 'Remove a job role') {
 				return removeExistingRole(); // complete 
 
-			} else if (choices.action == 'Open Departments' && choices.departments == 'View job roles') {
+			} else if (choices.action == 'Open Job Roles' && choices.jobRoles == 'View job roles') {
 				return viewJobRoles(); // complete
 
 

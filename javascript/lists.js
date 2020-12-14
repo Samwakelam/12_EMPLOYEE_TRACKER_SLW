@@ -95,24 +95,25 @@ const updateEmployeeList = () => {
 	});
 };
 
-const clearLists = () => {
+// const clearLists = () => {
 
-	departmentList = [];
-	managerList = [];
-	roleList = [];
-	employeeList = []; 
-}
+// 	departmentList = [];
+// 	managerList = [];
+// 	roleList = [];
+// 	employeeList = []; 
+// }
 
 // ------------- Update Lists ---------------------------------------
 // Updates all lists when called by other functions 
 // so there are no stray entries to choose from.
 // -----------------------------------------------------------------------
 const updateLists = () => {
+	
+		updateDepartmentList();
+		updateManagerList();
+		updateRoleList();
+		updateEmployeeList();
 
-  updateDepartmentList();
-  updateManagerList();
-  updateRoleList();
-  updateEmployeeList();
 }
 
 
@@ -122,6 +123,6 @@ exports.departmentList = departmentList;
 exports.managerList = managerList;
 exports.roleList = roleList;
 exports.employeeList = employeeList;
+// exports.clearLists = clearLists; 
 exports.updateLists = updateLists;
-exports.clearLists = clearLists; 
 

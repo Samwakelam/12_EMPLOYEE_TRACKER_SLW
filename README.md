@@ -55,8 +55,9 @@ Use the command line ```> npm install <dependency name> ```
 
 1.	On first entering the application you are faced with 3 options: Exit, Open departments, open Employees. Exit will of course leave the application.
 
-2. [Open Departments](#Departments)
-3. [Open Employees](#Employees) 
+2. [Open Departments](#Open_Departments)
+3. [Open Employees](#Open-Employees) 
+4. [Open Job Roles](#OpenJobRoles)
 
 ### Open departments: 
 This is all things business side to the application, manager the departments and roles but your employees are nowhere to be seen. You will need to return to the start menu and Open Employees using the “Return” option. 
@@ -75,6 +76,13 @@ There is a check in place here that allows you to escape if you accidently enter
 ##### View departments:
 View departments will list for you the department name and id and how many employees are employed under it. 
 
+### Open Job Roles: 
+This is all things Job role related. 
+
+Here you can:
+
+##### Return to the main menu
+
 ##### Add a job role to a department:
 You are asked for the name of your job role, be sure to either stick to sentence case or lower case or some views may show you the same job role as two different entries. 
 
@@ -87,6 +95,7 @@ if you wish to delete multiple you will need to run the programm again for each 
 
 ##### View Job roles
 View Job Roles will list for you the job title and how many employees are employed under it. 
+
 
 ### Open Employees: 
 This is all things employee based. You can assign their job roles, view and delete as you desire. 
