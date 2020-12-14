@@ -82,6 +82,7 @@ View departments will list for you the department name and id and how many emplo
 
 [![Open departments](public/assets/images/Open-departments.png)](https://drive.google.com/file/d/1tp2jLQWGNjOHcajYAehnU6vY0BqUO33N/preview)
 
+---
 ### Open Job Roles: 
 This is all things Job role related. 
 
@@ -106,6 +107,7 @@ View Job Roles will list for you the job title and how many employees are employ
 
 [![Open Job Roles](public/assets/images/Open-jobroles.png)](https://drive.google.com/file/d/1e4YHIrBu2RmJLXKQYkf0YSh6zc-TaHA8/preview)
 
+---
 ### Open Employees: 
 This is all things employee based. You can assign their job roles, view and delete as you desire. 
 
@@ -114,6 +116,10 @@ Here you can:
 ##### Return to the main menu
 
 ##### Add a new employee 
+
+**Double barrel names must be joined and cannot have a space.**
+Hyphen and ' are acceptable. 
+
 When asked, input the employee’s first and last names (separately), choose a department, choose a job role, and decide if they need a manager or not. If they do, you will be asked to choose from the list of managers available. 
 
 A manager’s job role must be ‘manager’ 
@@ -129,7 +135,7 @@ First you are asked for a reason such as promotion or reassignment. This current
 
 You select the employee you wish to update, then which part of their information you wish to adjust. There is a confirmation question at the end to check if the information you enter is correct. 
 
-*	Department:   
+*	**Department:**   
   You choose the department you want to move the employee too from your list of available departments.  
 
     This assigns the employee to a department first, however you cannot assign an employee to  a department alone. 
@@ -138,24 +144,24 @@ You select the employee you wish to update, then which part of their information
 
     This way you may also be asked about managers and it makes sure all the boxes are ticked. 
 
-<hr>
 
 
-*	Job role:  
+
+*	**Job role:**  
   You choose an available job role to assign to your employee. 
 
     Changing job roles means that your employee may change departments. If this is the case the program will inform you of such and ask if you wish to update the manager, at which point you are asked the relevant manager questions and taken through those steps. Do you want to assign a manager, if so who? 
 
-<hr>
 
-*	Manager:   
+
+*	**Manager:**   
   You will be asked if the employee will need a manager, if yes, which manager from your available managers. 
 
     The program will inform you if you have chosen the manager they are currently assigned too and if you would like to choose another manager. 
 
-<hr>
 
-* HR: 
+
+* **HR:** 
 This is currently a somewhat "hidden" department. You cannot delete it, You can view it in view departments. 
 
 Hopefully a future update will see employees that are displaced by the removal of a job role or department will be sent to HR for reassignment. 
