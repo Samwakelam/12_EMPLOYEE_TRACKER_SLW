@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const mysql = require("mysql");
+const dotenv = require('dotenv').config();
 
 // My Pages 
 const { viewEmployees, viewDepartments, viewJobRoles } = require('./javascript/views');
@@ -12,8 +13,8 @@ const con = mysql.createConnection({
 	host: "localhost",
 	port: 3306,
 	user: "root",
-	password: 'Br@ntwood34',
-  // password: process.argv[2],
+	// password: process.env.PASSWORD,
+  password: process.argv[2],
 	database: "employeetracker",
 });
 
