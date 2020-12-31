@@ -1,6 +1,8 @@
+// connection
+const databaseConnection = require('./connection');
+
+//  modules
 const inquirer = require('inquirer');
-const mysql = require("mysql");
-const dotenv = require('dotenv').config();
 
 // My Pages 
 const { viewEmployees, viewDepartments, viewJobRoles } = require('./javascript/views');
@@ -9,22 +11,7 @@ const { removeDepartment, removeEmployee, removeExistingRole } = require('./java
 const { updateExistingEmployee } = require('./javascript/update');
 const { updateLists } = require('./javascript/lists');
 
-const con = mysql.createConnection({
-	host: "localhost",
-	port: 3306,
-	user: "root",
-	// password: process.env.PASSWORD,
-  password: process.argv[2],
-	database: "employeetracker",
-});
 
-const databaseConnection = () => {
-	con.connect(function (err) {
-		if (err) throw err;
-		// console.log("database connected");
-	});
-	return console.log("database connected");
-}
 
 
 const mainMenu = () => {
@@ -89,7 +76,7 @@ const mainMenu = () => {
 			// console.log("choices =", choices);
 
 			if (choices.action === 'Exit') {
-				console.log("Thank you for visiting McDuck Enterprises. We hope you enjouy your day.");
+				console.log("Thank you for visiting McDuck Enterprises. We hope you enjoy your day.");
 				return process.exit();
 
 			} else if (choices.employees == 'Return' || choices.departments == 'Return' || choices.jobRoles == 'Return') {
@@ -146,7 +133,7 @@ const mainMenu = () => {
 
 
 async function init() {
-	await databaseConnection();
+	await databaseConnection.databaseConnection();
 	mainMenu();
 	return;
 }

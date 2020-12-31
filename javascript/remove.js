@@ -1,28 +1,29 @@
+// connection
+const {con, databaseConnection} = require('../connection');
+
+//  modules
 const inquirer = require('inquirer');
-const mysql = require("mysql");
 const cTable = require('console.table');
-const mainMenu = require('../index');
 
 //my Pages 
+const mainMenu = require('../index');
+
 const {
-  departmentList,
-  managerList,
-  roleList,
-  employeeList,
-  updateLists,
+  // departmentList,
+  // managerList,
+  // roleList,
+  // employeeList,
+  updateDepartmentList,
+  updateManagerList,
+  updateRoleList,
+  updateEmployeeList,
+  // clearLists,
+  // updateLists,
 } = require('./lists');
 
 const { viewEmployees, viewDepartments, viewJobRoles } = require('./views');
 
 
-const con = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
- 
-  password: process.argv[2],
-  database: "employeetracker",
-});
 
 // ------------- remove Department ---------------------------------------
 // 2 Query - must remove with department id for unique selection
@@ -30,10 +31,9 @@ const con = mysql.createConnection({
 //    compare results to get/set matching id for chosen depatment
 // 2. delete from departments 
 // -----------------------------------------------------------------------
-const removeDepartment = () => {
+const removeDepartment = async () => {
 
-  updateLists();
-  inquirer
+  await inquirer
     .prompt([
       {
         type: "list",
@@ -45,7 +45,7 @@ const removeDepartment = () => {
         type: "list",
         name: "deplist",
         message: "Which department would you like to delete?",
-        choices: departmentList,
+        choices: await updateDepartmentList,
         loop: false, 
         when: (answer) => answer.continue === "Yes continue to remove a department",
       },
@@ -96,10 +96,9 @@ const removeDepartment = () => {
 //    SET employee ID to be deleted.
 // 2. Delete employee - required employee id for unique selection
 // -----------------------------------------------------------------------
-const removeEmployee = () => {
+const removeEmployee = async () => {
 
-  updateLists();
-  inquirer
+  await inquirer
     .prompt([
       {
         type: "list",
@@ -111,7 +110,7 @@ const removeEmployee = () => {
         type: "list",
         name: "emplist",
         message: "Which employee would you like to delete?",
-        choices: employeeList,
+        choices: await updateEmployeeList,
         loop: false, 
         when: (answer) => answer.continue === "Yes continue to remove an employee",
       },
@@ -124,7 +123,7 @@ const removeEmployee = () => {
       }
     ])
     .then(answers => {
-      console.log("answers =", answers);
+      // console.log("answers =", answers);
       if(answers.continue == "Return"){
         mainMenu.mainMenu();
 
@@ -224,10 +223,9 @@ const removeEmployee = () => {
 //    there is a check in place for more than one job role with the same name. 
 // 2. removes job role selected 
 // -----------------------------------------------------------------------
-const removeExistingRole = () => {
+const removeExistingRole = async () => {
 
-  updateLists(); 
-  inquirer
+  await inquirer
     .prompt([
       {
         type: "list",
@@ -239,7 +237,7 @@ const removeExistingRole = () => {
         type: "list",
         name: "jobRole",
         message: "What role are you removing? ",  
-        choices: roleList, 
+        choices: await updateRoleList, 
         loop: false, 
         when: answer => answer.stayOrLeave == "Yes delete a job role",
       },
@@ -257,8 +255,7 @@ const removeExistingRole = () => {
       if (answers.stayOrLeave == "Return to main menu"){
         mainMenu.mainMenu();
 
-      } else {
-        if(answers.confirm == false){
+      } else if(answers.confirm == false){
           removeExistingRole(); 
 
         }else{
@@ -279,9 +276,9 @@ const removeExistingRole = () => {
 
             if(result.length > 1){
               let departments = [];
+
               result.forEach(function(value){
                 departments.push(value.depName); 
-
               })
               // console.log({departments});
 
@@ -297,7 +294,7 @@ const removeExistingRole = () => {
                     type: "list",
                     name: "department",
                     message: `Which departement do you want to remove ${answers.jobRole} from? `, 
-                    choices: departments, 
+                    choices: await updateDepartmentList, 
                     loop: false, 
                   }
                 ])
@@ -329,11 +326,11 @@ const removeExistingRole = () => {
               } else {
                 console.log(" Your jobrole has not been deleted, please check and try again.")
               }
+              mainMenu.mainMenu(); 
             });
 
-            mainMenu.mainMenu(); 
           })
-        }
+        
       };
     })
     .catch((error) => {
