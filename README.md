@@ -38,11 +38,14 @@ That is why my project stands out. Separate of a few necessary additions and upd
 
 Use the command line ```> npm install <dependency name> ```
 
-3. To run the application enter ``` > node index <Your password> ``` in your command line terminal. You will need to enter your password for your MySQL datatbase here to. 
+3. To set up PASSWORD you will need to create your own .env file in the root of your project, inside you need the line: ``` PASSWORD = yourpassword ```
 
-4. I have named the application with a welcome to McDuck Enterprises. To change this to your own company name you will need to open index.js and in the top line of the mainMenu() function there is a console log with the welcome statement. There is also a thank you for leaving in the Exit option. Other than that, it’s all down to you to name and populate your departments and job roles. 
+4. To run the application enter ``` > node index ``` in your command line terminal. You will need to enter your password for your MySQL datatbase here to. 
+(previous versions ran: ``` > node index <your password> ```, utilising the process.argv in the commandline).
 
-5. To Populate your database with McDuck Enterprises use the Seed.sql file in the database folder to set up the initial tables and insert the main employees. 
+5. I have named the application with a welcome to McDuck Enterprises. To change this to your own company name you will need to open index.js and in the top line of the mainMenu() function there is a console log with the welcome statement. There is also a thank you for leaving in the Exit option. Other than that, it’s all down to you to name and populate your departments and job roles. 
+
+6. To Populate your database with McDuck Enterprises use the Seed.sql file in the database folder to set up the initial tables and insert the main employees. 
 
 #### Technologies 
 * Inquirer
@@ -225,12 +228,16 @@ Archibald Quackerbill - sailor
 
 * Some modifications to the updates function, update job role salaries. 
 
-* Change process.argv for the database password to a .env file. 
+* Change process.argv for the database password to a .env file. - Update(31.12.2020)
 
 * View employees that do not have a manager by adding "No Manager" to the lists. 
 
 
 ## Updates 
+
+Update(31.12.2020) 
+* Process env sucessfully managed. Installation section updated to reflect new Password functionality. 
+* Lists have been made asynchronous so that duplicating no longer occurs. 
 
 ## Credits 
 
