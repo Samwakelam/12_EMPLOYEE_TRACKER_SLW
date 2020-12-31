@@ -1,35 +1,35 @@
+// connection
+const {con, databaseConnection} = require('../connection');
+
+//  modules
 const inquirer = require('inquirer');
-const mysql = require("mysql");
 const cTable = require('console.table');
-const mainMenu = require('../index'); 
 
 //my Pages 
+const mainMenu = require('../index'); 
+
 const {
-  departmentList,
-  managerList,
-  roleList,
-  employeeList,
-	clearLists,
-	updateLists,
+  // departmentList,
+  // managerList,
+  // roleList,
+  // employeeList,
+  updateDepartmentList,
+  updateManagerList,
+  updateRoleList,
+  updateEmployeeList,
+  // clearLists,
+  // updateLists,
 } = require('./lists');
 
-const con = mysql.createConnection({
-	host: "localhost",
-	port: 3306,
-	user: "root",
-  password: process.argv[2],
-	database: "employeetracker",
-});
+
 
 // ------------- View employees ---------------------------------------
 // Joins 3 tables in variation, departments, employee and job role
 // displays differently depending on selection in questions...
 // -----------------------------------------------------------------------
-const viewEmployees = () => {
+const viewEmployees = async () => {
 
-	updateLists();
-
-	inquirer
+	await inquirer
 		.prompt([
 			{
 				type: "list",
@@ -47,7 +47,7 @@ const viewEmployees = () => {
 				type: "list",
 				name: 'filterDep',
 				message: 'Filter by department:',
-				choices: departmentList,
+				choices: await updateDepartmentList,
 				loop: false, 
 				when: (answer) => answer.viewBy === "By Department"
 			},
@@ -55,7 +55,7 @@ const viewEmployees = () => {
 				type: "list",
 				name: 'filterMan',
 				message: 'Filter by Manager:',
-				choices: managerList,
+				choices: await updateManagerList,
 				loop: false, 
 				when: (answer) => answer.viewBy === "By Manager"
 			},
@@ -63,7 +63,7 @@ const viewEmployees = () => {
 				type: "list",
 				name: 'filterJob',
 				message: 'Filter by Job Role:',
-				choices: roleList,
+				choices: await updateRoleList,
 				loop: false, 
 				when: (answer) => answer.viewBy === "By Job Role"
 			},
@@ -71,7 +71,7 @@ const viewEmployees = () => {
 				type: "list",
 				name: 'filterEmp',
 				message: 'Filter by employee:',
-				choices: employeeList,
+				choices: await updateEmployeeList,
 				loop: false, 
 				when: (answer) => answer.viewBy === "By Employee"
 			},
@@ -130,22 +130,25 @@ const viewEmployees = () => {
 						ORDER BY lastName `;
 					// console.log ("vbDepSql =", vbDepSql);
 					con.query(vbDepSql, function (err, result) {
-						// console.log({result});
-						let display = [];
-						result.forEach((value) => {
-							// console.log({value});
-							display.push(
-								{
-									'Name': value.firstName + " " + value.lastName,
-									'Job Title': value.jobTitle,
-									'Salary' : value.salary,
-									'Employee id': value.id
-								}
-							)
-						});
-						console.table(display);
-						clearLists(); 
-					
+						console.log("result =", result);
+						if (result == []){
+							console.log("Yikes!! There are likely no employees in this department yet. View departments to double check. You can add an employee or update an employee to this department and try this action again later.")
+						} else {
+							let display = [];
+							result.forEach((value) => {
+								// console.log({value});
+								display.push(
+									{
+										'Name': value.firstName + " " + value.lastName,
+										'Job Title': value.jobTitle,
+										'Salary' : value.salary,
+										'Employee id': value.id
+									}
+								)
+							});
+							console.table(display);					
+							
+						}
 						mainMenu.mainMenu();
 					});
 					break;

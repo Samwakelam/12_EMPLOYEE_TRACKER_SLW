@@ -129,7 +129,7 @@ ON dep.id = jr.departments_id
 -- Add to above to see only 'managers' -- confirmed 
 WHERE jobTitle = 'var1'
 
--- View employee and manager -- confirmed
+-- View employee and manager split name -- confirmed
 SELECT empE.firstName , empE.lastName, empM.firstName, empM.lastName
 FROM employee AS empE
 INNER JOIN 
@@ -137,6 +137,13 @@ employee AS empM
 ON empE.manager_id = empM.id 
 -- Add to above to see employees of a specific manager -- confirmed
 WHERE empM.lastName = 'McDuck'
+
+-- View employee and manager full name-- confirmed
+SELECT empE.firstName , empE.lastName, concat(empM.firstName," ",empM.lastName) AS manager
+FROM employee AS empE
+INNER JOIN 
+employee AS empM
+ON empE.manager_id = empM.id
 
 -- View all employee data including thier manager 
 SELECT empM.firstName, empM.lastName, empE.firstName , empE.lastName, jobTitle, salary, empE.id

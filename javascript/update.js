@@ -1,16 +1,22 @@
-const inquirer = require('inquirer');
-const mysql = require("mysql");
-const cTable = require('console.table');
+// connection
+const {con, databaseConnection} = require('../connection');
 
+//  modules
+const inquirer = require('inquirer');
+const cTable = require('console.table');
 
 //my Pages 
 const {
-  departmentList,
-  managerList,
-  roleList,
-  employeeList,
-  updateLists,
-  // clearLists
+  // departmentList,
+  // managerList,
+  // roleList,
+  // employeeList,
+  updateDepartmentList,
+  updateManagerList,
+  updateRoleList,
+  updateEmployeeList,
+  // clearLists,
+  // updateLists,
 } = require('./lists');
 
 const mainMenu = require('../index');
@@ -18,23 +24,14 @@ const { viewEmployees, viewDepartments, viewJobRoles } = require('./views');
 const { addNewRole } = require('./add');
 
 
-const con = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: process.argv[2],
-  database: "employeetracker",
-});
-
 // ------------- Update Existing Employee  ---------------------------------------
 // Asks what to update, manager job role and department? 
 // Splits awnsers into distributable variable 
 // 1 Querey + spliting functions to update manager, job role and department
 // -----------------------------------------------------------------------
-const updateExistingEmployee = () => {
+const updateExistingEmployee = async () => {
 
-  updateLists();
-  inquirer
+  await inquirer
     .prompt([
       {
         type: "list",
@@ -46,7 +43,7 @@ const updateExistingEmployee = () => {
         type: "list",
         name: "employee",
         message: "Which employee are you updating?",
-        choices: employeeList
+        choices: await updateEmployeeList,
       },
       {
         type: "list",
@@ -65,21 +62,21 @@ const updateExistingEmployee = () => {
         type: "list",
         name: "newManager",
         message: "Who is there new manager",
-        choices: managerList,
+        choices: await updateManagerList,
         when: (answers) => answers.managerConfirm === true
       },
       {
         type: "list",
         name: "department",
         message: "Pick a department:",
-        choices: departmentList,
+        choices: await updateDepartmentList,
         when: (answers) => answers.section === "Department"
       },
       {
         type: "list",
         name: "jobrole",
         message: "Pick a jobrole:",
-        choices: roleList,
+        choices: await updateRoleList,
         when: (answers) => answers.section === "Job role"
       },
       {
@@ -192,7 +189,7 @@ const updateJobRole = (questionResults) => {
     const jrUpSql =
       ` Update employee SET jobRole_id = ${result[0].id} WHERE id = ${empId} `;
 
-    con.query(jrUpSql, function (err, result) {
+    con.query(jrUpSql, async function (err, result) {
       // console.log(" Update Job role result 2nd SQL = ", result);
       // console.log(newDepId == currentDepId);
 
@@ -204,7 +201,7 @@ const updateJobRole = (questionResults) => {
       } else {
         console.log("Your employee's Department has changed!");
 
-        inquirer
+        await inquirer
           .prompt([
             {
               type: "confirm",
@@ -224,7 +221,7 @@ const updateJobRole = (questionResults) => {
               type: "list",
               name: "newManager",
               message: "Who is there new manager",
-              choices: managerList,
+              choices: await updateManagerList,
               when: (answer) => answer.managerConfirm === true
             },
             {
@@ -319,7 +316,7 @@ const updateManager = (questionResults) => {
     ON dep.id = jr.departments_id
     WHERE jobTitle = 'manager' `;
 
-    con.query(managerSql, function (err, result) {
+    con.query(managerSql, async function (err, result) {
       // console.log(" update manager results =", result);
 
       let newManagerId = "";
@@ -336,7 +333,7 @@ const updateManager = (questionResults) => {
       if (newManagerId == currentManagerId) {
         console.log("That is their current Manager");
 
-        inquirer
+        await inquirer
           .prompt([
             {
               type: "confirm",
@@ -355,7 +352,7 @@ const updateManager = (questionResults) => {
               type: "list",
               name: "newManager",
               message: "Who is there new manager",
-              choices: managerList,
+              choices: await updateManagerList,
               when: (answer) => answer.managerConfirm === true
             },
             {
@@ -463,7 +460,7 @@ const updateDepartment = (questionResults) => {
       ON jr.departments_id = dep.id 
       WHERE depName = '${newDepartment}' 
       GROUP BY jobtitle`
-    con.query(getAJrSql, function (err, result) {
+    con.query(getAJrSql, async function (err, result) {
       // console.log("available job roles result =", result);
       result.forEach((value) => {
         availableJobroles.push(value.jobTitle);
@@ -478,7 +475,7 @@ const updateDepartment = (questionResults) => {
 
       } else {
 
-        inquirer
+        await inquirer
           .prompt([
             {
               type: "list",
@@ -514,9 +511,9 @@ const updateDepartment = (questionResults) => {
 // function requiered if new employee is selected incorrect
 // where to go? redo or exit activity 
 // -----------------------------------------------------------------------
-const newOrReturn = () => {
+const newOrReturn = async () => {
 
-  inquirer
+  await inquirer
     .prompt([
       {
         type: "list",

@@ -1,37 +1,35 @@
-const inquirer = require('inquirer');
-const mysql = require("mysql");
-const cTable = require('console.table');
-const dotenv = require('../config/dotenv');
+// connection
+const {con, databaseConnection} = require('../connection');
 
+//  modules
+const inquirer = require('inquirer');
+const cTable = require('console.table');
 
 //my Pages 
 const {
-  departmentList,
-  managerList,
-  roleList,
-  employeeList,
-  updateLists,
+  // departmentList,
+  // managerList,
+  // roleList,
+  // employeeList,
+  updateDepartmentList,
+  updateManagerList,
+  updateRoleList,
+  updateEmployeeList,
+  // clearLists,
+  // updateLists,
 } = require('./lists');
 
 const mainMenu = require('../index');
 const { viewEmployees, viewDepartments, viewJobRoles } = require('./views');
 
-const con = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  // password: dotenv.PASSWORD,
-  password: process.argv[2],
-  database: "employeetracker",
-});
 
 // ------------- new or return  ---------------------------------------
 // function requiered if new employee is selected incorrect
 // where to go? redo or exit activity 
 // -----------------------------------------------------------------------
-const newOrReturn = () => {
+const newOrReturn = async () => {
 
-  inquirer
+  await inquirer
     .prompt([
       {
         type: "list",
@@ -61,10 +59,9 @@ const newOrReturn = () => {
 // Uses only departments
 // requiers only a new string for department name 
 // -----------------------------------------------------------------------
-const addNewDepartment = () => {
+const addNewDepartment = async () => {
 
-  updateLists();
-  inquirer
+  await inquirer
     .prompt([
       {
         type: "input",
@@ -76,7 +73,7 @@ const addNewDepartment = () => {
       // console.log("answer =", answer);
       const ndSql =
         ` INSERT INTO departments (depName) VALUES ( '${answer.newDep}' ) `;
-      console.log("ndSql =", ndSql);
+      // console.log("ndSql =", ndSql);
       con.query(ndSql, function (err, result) {
         // console.log("result.affectedRows =", result.affectedRows);
         console.log(`Your department, ${answer.newDep}, has been added`);
@@ -97,10 +94,10 @@ const addNewDepartment = () => {
 //    Uses for loop to match result to chosen department associated with new job role
 // 2. insert job role - requiers job title string, salary integer and department id.
 // -----------------------------------------------------------------------
-const addNewRole = () => {
+const addNewRole = async () => {
 
-  updateLists();
-  inquirer
+  // updateLists();
+  await inquirer
     .prompt([
       {
         type: "input",
@@ -111,7 +108,7 @@ const addNewRole = () => {
         type: "list",
         name: "whichDep",
         message: "What Department would you like to add a new Role to?",
-        choices: departmentList,
+        choices: await updateDepartmentList(),
         loop: false,
       },
       {
@@ -167,10 +164,10 @@ const addNewRole = () => {
 // 1. GETS details for the new employee and the department, 
 //    uses further fucntions to assign jobrole and manager
 // -----------------------------------------------------------------------
-const addNewEmployee = () => {
+const addNewEmployee = async () => {
 
-  updateLists();
-  inquirer
+  // updateLists();
+  await inquirer
     .prompt([
       {
         type: "input",
@@ -186,7 +183,7 @@ const addNewEmployee = () => {
         type: "list",
         name: "department",
         message: "Assign a department",
-        choices: departmentList,
+        choices: await updateDepartmentList,
         loop: false,
       },
       // for some reason requiered a final question for the manager list to display choices variable.
@@ -300,6 +297,12 @@ const availableJobroles = (questionResults) => {
   });
 }
 
+// ------------- available Managers --------------------------------------------
+// 2 Query 
+// 1. GETS Managers within the chosen department
+//    nested questions ask which role or directs to create a role.
+// 2. gets chosen manager id  
+// -----------------------------------------------------------------------
 const availableManagers = (questionResults) => {
   // console.log("available managers question results =", questionResults);
 
@@ -317,11 +320,11 @@ const availableManagers = (questionResults) => {
     employee AS emp
     ON emp.jobRole_id = jr.id
     WHERE (depName, jobTitle)= ('${department}', 'manager')`;
-  con.query(getManagersSql, function (err, result) {
+  con.query(getManagersSql, async function (err, result) {
     // console.log("get manager sql result =", result);
     if (result.length < 1) {
       console.log("There are no managers in this departent");
-      availableMangers.push("None Available");
+      availableManagers.push("None Available");
     } else {
       for (i in result) {
         availableManagers.push(result[i].firstName + " " + result[i].lastname);
@@ -329,7 +332,7 @@ const availableManagers = (questionResults) => {
       // console.log("available managers =", availableManagers);
     }
 
-    inquirer
+    await inquirer
       .prompt([
         {
           type: "confirm",
@@ -341,7 +344,7 @@ const availableManagers = (questionResults) => {
           type: "list",
           name: "manager",
           message: "Managers in this department:",
-          choices: availableManagers,
+          choices: await updateManagerList,
           loop: false,
           when: (answer) => answer.confirm === true,
         },
@@ -357,7 +360,7 @@ const availableManagers = (questionResults) => {
       .then((answer) => {
         console.log("available managers answer =", answer);
 
-        if (answer.confirm == false) {
+        if (answer.confirm == false || answer.manager == 'None Available') {
           questionResults.newManager = "No Manager"
           // console.log("questionResults without manager =", questionResults);
           insertIntoDB(questionResults);
@@ -386,7 +389,10 @@ const availableManagers = (questionResults) => {
 }
 
 
-
+// ------------- insertIntoDB --------------------------------------------
+// 2 Query under if statment 
+// Each insert into the database where a null option is valid for no manager. 
+// -----------------------------------------------------------------------
 const insertIntoDB = (questionResults) => {
 
   const { firstName, lastName, jobId, newManager, newManagerId } = questionResults;
